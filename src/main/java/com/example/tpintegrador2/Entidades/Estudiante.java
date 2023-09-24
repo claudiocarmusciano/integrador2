@@ -30,7 +30,7 @@ public class Estudiante {
         super();
     }
 
-    public Estudiante(int idEstudiante, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta, List<Carrera> carreras) {
+    public Estudiante(int idEstudiante, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
         this.idEstudiante = idEstudiante;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -39,7 +39,7 @@ public class Estudiante {
         this.nroDocumento = nroDocumento;
         this.ciudadResidencia = ciudadResidencia;
         this.nroLibreta = nroLibreta;
-        this.carreras = carreras;
+        //this.carreras = carreras;
     }
 
     public int getIdEstudiante() {
