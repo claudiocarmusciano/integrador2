@@ -1,10 +1,8 @@
 
 package com.example.tpintegrador2.Entidades;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Estudiante {
@@ -24,15 +22,15 @@ public class Estudiante {
     private String ciudadResidencia;
     @Column(nullable=false)
     private int nroLibreta;
-    @OneToMany
-    private Carrera carreras;
+    @ManyToMany (fetch = FetchType.LAZY, mappedBy = "estudiantes")
+    private List<Carrera> carreras;
 
 
     public Estudiante() {
         super();
     }
 
-    public Estudiante(int idEstudiante, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta, Carrera carreras) {
+    public Estudiante(int idEstudiante, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta, List<Carrera> carreras) {
         this.idEstudiante = idEstudiante;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -108,11 +106,11 @@ public class Estudiante {
         this.nroLibreta = nroLibreta;
     }
 
-    public Carrera getCarreras() {
+    public List<Carrera> getCarreras() {
         return carreras;
     }
 
-    public void setCarreras(Carrera carreras) {
+    public void setCarreras(List<Carrera> carreras) {
         this.carreras = carreras;
     }
 

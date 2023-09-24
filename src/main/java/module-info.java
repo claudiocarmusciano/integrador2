@@ -1,6 +1,6 @@
 module com.example.tpintegrador2 {
-    requires javafx.controls;
-    requires javafx.fxml;
+//    requires javafx.controls;
+//    requires javafx.fxml;
     requires java.persistence;
 
 
