@@ -1,10 +1,12 @@
 package com.example.tpintegrador2.Factory;
 
-import javax.persistence.Persistence;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityManager;
+//import javax.persistence.Persistence;
+//import javax.persistence.EntityManagerFactory;
+//import javax.persistence.EntityManager;
 
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class EntityFactory {
 

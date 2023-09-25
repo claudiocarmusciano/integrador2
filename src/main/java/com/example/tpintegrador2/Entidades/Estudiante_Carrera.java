@@ -1,21 +1,22 @@
 package com.example.tpintegrador2.Entidades;
 
-import javax.persistence.*;
+//import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Estudiante_Carrera {
     @Id
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumns({
-            @JoinColumn(name = "dni", referencedColumnName = "dni"),
-            @JoinColumn(name = "libretaUniversitaria", referencedColumnName = "libretaUniversitaria")
+            @JoinColumn(name = "nroDocumento", referencedColumnName = "nroDocumento"),
+            @JoinColumn(name = "nroLibreta", referencedColumnName = "nroLibreta")
     })
     private Estudiante estudiante;
 
 
     @Id
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "carrera", referencedColumnName = "id")
+    @JoinColumn(name = "carrera", referencedColumnName = "idCarrera")
     private Carrera carrera;
 
     private int antiguedad;

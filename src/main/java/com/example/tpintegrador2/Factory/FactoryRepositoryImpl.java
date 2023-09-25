@@ -1,6 +1,6 @@
 package com.example.tpintegrador2.Factory;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import com.example.tpintegrador2.Interfaces.CarreraRepository;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;

@@ -1,6 +1,6 @@
 package com.example.tpintegrador2.Entidades;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -9,8 +9,8 @@ public class Carrera {
     private int idCarrera;
     @Column
     private String nombreCarrera;
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "carreras")
-    private List<Estudiante> estudiantes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
+    private List<Estudiante_Carrera> estudianteCarrera;
 
     public Carrera() {
         super();

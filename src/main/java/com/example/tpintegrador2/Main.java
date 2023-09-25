@@ -7,8 +7,15 @@ import com.example.tpintegrador2.Factory.FactoryRepositoryImpl;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
 import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityTransaction;
+//import java.util.List;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
+
 import java.util.List;
 
 public class Main {

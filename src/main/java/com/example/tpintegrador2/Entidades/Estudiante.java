@@ -1,7 +1,7 @@
 
 package com.example.tpintegrador2.Entidades;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -22,8 +22,8 @@ public class Estudiante {
     private String ciudadResidencia;
     @Column(nullable=false)
     private int nroLibreta;
-    @ManyToMany (fetch = FetchType.LAZY, mappedBy = "estudiantes")
-    private List<Carrera> carreras;
+    @OneToMany (fetch = FetchType.LAZY, mappedBy = "estudiante")
+    private List<Estudiante_Carrera> estudianteCarrera;
 
 
     public Estudiante() {
@@ -106,13 +106,12 @@ public class Estudiante {
         this.nroLibreta = nroLibreta;
     }
 
-    public List<Carrera> getCarreras() {
-        return carreras;
+    public List<Estudiante_Carrera> getEstudianteCarrera() {
+        return estudianteCarrera;
     }
 
-    public void setCarreras(List<Carrera> carreras) {
-
-        this.carreras = carreras;
+    public void setEstudianteCarrera(List<Estudiante_Carrera> estudianteCarrera) {
+        this.estudianteCarrera = estudianteCarrera;
     }
 
     @Override
@@ -126,7 +125,7 @@ public class Estudiante {
                 ", nroDocumento=" + nroDocumento +
                 ", ciudadResidencia='" + ciudadResidencia + '\'' +
                 ", nroLibreta=" + nroLibreta +
-                ", carreras=" + carreras +
+                ", carreras=" + estudianteCarrera +
                 '}';
     }
 }

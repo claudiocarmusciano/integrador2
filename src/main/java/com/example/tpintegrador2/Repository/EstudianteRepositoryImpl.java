@@ -16,8 +16,11 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
         this.em = em;
     }
 
-	
-    @Override
+	public EstudianteRepositoryImpl(jakarta.persistence.EntityManager em) {
+	}
+
+
+	@Override
     public void altaEstudiante(int id, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
     	Estudiante estudiante = new Estudiante(id, nombre, apellido, edad, genero, nroDocumento, ciudadResidencia, nroLibreta);
     	em.persist(estudiante);

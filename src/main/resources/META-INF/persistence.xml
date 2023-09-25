@@ -5,7 +5,9 @@
              version="3.0">
     <persistence-unit name="integrador2">
 
-        <class>DTO.DTOEstudiante</class>
+        <class>com.example.tpintegrador2.Entidades.Carrera</class>
+        <class>com.example.tpintegrador2.Entidades.Estudiante</class>
+        <class>com.example.tpintegrador2.Entidades.Estudiante_Carrera</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
