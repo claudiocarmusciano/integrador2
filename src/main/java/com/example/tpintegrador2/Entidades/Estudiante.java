@@ -111,6 +111,7 @@ public class Estudiante {
     }
 
     public void setCarreras(List<Carrera> carreras) {
+
         this.carreras = carreras;
     }
 

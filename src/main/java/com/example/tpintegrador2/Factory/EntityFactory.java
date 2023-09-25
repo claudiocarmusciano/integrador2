@@ -11,6 +11,7 @@ public class EntityFactory {
         private final EntityManagerFactory emf;
 
         private EntityFactory() {
+
             emf = Persistence.createEntityManagerFactory("integrador2");
         }
 
@@ -19,10 +20,12 @@ public class EntityFactory {
         }
 
         public static EntityFactory getInstance() {
+
             return SingletonHelper.INSTANCE;
         }
 
         public EntityManager createEntityManager() {
+
             return emf.createEntityManager();
         }
 

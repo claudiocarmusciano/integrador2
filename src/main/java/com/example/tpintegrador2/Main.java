@@ -1,8 +1,10 @@
-/*package com.example.tpintegrador2;
+package com.example.tpintegrador2;
 
 import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Factory.EntityFactory;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
+import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -25,7 +27,7 @@ public class Main {
 
             // DEBEMOS CREAR UNA CLASE EstudianteRepositoryImpl QUE IMPLEMENTE EstudianteRepository
             // YA QUE EstudianteRepository NO PUEDE SER INSTANCIADA.
-            EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl(em);
+            EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
             estudianteRepository.altaEstudiante(1, "Nombre1", "Apellido1", 20, "M", 123456, "Ciudad1", 101);
 
 
@@ -80,4 +82,3 @@ public class Main {
         }
     }
 }
-*/
