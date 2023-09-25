@@ -2,6 +2,8 @@ package com.example.tpintegrador2;
 
 import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Factory.EntityFactory;
+import com.example.tpintegrador2.Factory.FactoryRepository;
+import com.example.tpintegrador2.Factory.FactoryRepositoryImpl;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
 import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
 
@@ -22,12 +24,20 @@ public class Main {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
 
+            
+            //creo la instancia del factoryImpl
+            FactoryRepository fr = FactoryRepositoryImpl.getInstancia(em);
+            //llamo a estudiante
+            //int id , String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta
+            fr.getEstudianteRepository().altaEstudiante(1,"Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325);
+
+            
 
             // a) Dar de alta un estudiante
 
             // DEBEMOS CREAR UNA CLASE EstudianteRepositoryImpl QUE IMPLEMENTE EstudianteRepository
             // YA QUE EstudianteRepository NO PUEDE SER INSTANCIADA.
-            EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
+            EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl(em);
             estudianteRepository.altaEstudiante(1, "Nombre1", "Apellido1", 20, "M", 123456, "Ciudad1", 101);
 
 
