@@ -1,8 +1,5 @@
 package com.example.tpintegrador2.Factory;
 
-//import javax.persistence.Persistence;
-//import javax.persistence.EntityManagerFactory;
-//import javax.persistence.EntityManager;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -15,6 +12,7 @@ public class EntityFactory {
         private EntityFactory() {
 
             emf = Persistence.createEntityManagerFactory("integrador2");
+
         }
 
         private static class SingletonHelper {

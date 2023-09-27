@@ -6,7 +6,9 @@ import java.util.List;
 
 @Entity
 public class Estudiante {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idEstudiante;
     @Column(nullable=false)
     private String nombre;
@@ -22,7 +24,7 @@ public class Estudiante {
     private String ciudadResidencia;
     @Column(nullable=false)
     private int nroLibreta;
-    @OneToMany (fetch = FetchType.LAZY, mappedBy = "estudiante")
+    @OneToMany (mappedBy = "estudiante")
     private List<Estudiante_Carrera> estudianteCarrera;
 
 

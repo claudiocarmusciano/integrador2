@@ -1,6 +1,6 @@
 package com.example.tpintegrador2.Entidades;
 
-//import javax.persistence.*;
+
 import jakarta.persistence.*;
 
 @Entity

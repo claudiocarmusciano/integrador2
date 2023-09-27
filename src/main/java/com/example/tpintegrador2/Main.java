@@ -33,7 +33,7 @@ public class Main {
 
             
             //creo la instancia del factoryImpl
-            FactoryRepository fr = FactoryRepositoryImpl.getInstancia(em);
+            FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
             //llamo a estudiante
             //int id , String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta
             fr.getEstudianteRepository().altaEstudiante(1,"Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325);
@@ -44,7 +44,7 @@ public class Main {
 
             // DEBEMOS CREAR UNA CLASE EstudianteRepositoryImpl QUE IMPLEMENTE EstudianteRepository
             // YA QUE EstudianteRepository NO PUEDE SER INSTANCIADA.
-            EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl(em);
+            EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
             estudianteRepository.altaEstudiante(1, "Nombre1", "Apellido1", 20, "M", 123456, "Ciudad1", 101);
 
 
@@ -59,19 +59,19 @@ public class Main {
 
             // c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
 
-            List<Estudiante> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados("nombre");
+         //   List<Estudiante> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados("nombre");
 
 
 
             // d) Recuperar un estudiante, en base a su número de libreta universitaria
 
-            Estudiante estudiantePorLibreta = estudianteRepository.recuperarEstudiantePorLibreta(101);
+      //      int estudiantePorLibreta = estudianteRepository.recuperarEstudiantePorLibreta(101);
 
 
 
             // e) Recuperar todos los estudiantes, en base a su género
 
-            List<Estudiante> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero("M");
+         //   List<Estudiante> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero("M");
 
 
 

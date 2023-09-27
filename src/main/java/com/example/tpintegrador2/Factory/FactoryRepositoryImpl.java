@@ -1,7 +1,5 @@
 package com.example.tpintegrador2.Factory;
 
-import jakarta.persistence.EntityManager;
-
 import com.example.tpintegrador2.Interfaces.CarreraRepository;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
 import com.example.tpintegrador2.Interfaces.Estudiante_CarreraRepository;
@@ -17,16 +15,16 @@ public class FactoryRepositoryImpl implements FactoryRepository {
 	
 	
 	
-	public FactoryRepositoryImpl(EntityManager em) {
-		er = new EstudianteRepositoryImpl(em);
-		cr = new CarreraRepositoryImpl(em);
+	public FactoryRepositoryImpl() {
+		er = new EstudianteRepositoryImpl();
+		cr = new CarreraRepositoryImpl();
 		ecr = new Estudiante_CarreraRepositoryImpl();
 	}
 	
 
-	public static FactoryRepositoryImpl getInstancia(EntityManager em) {
+	public static FactoryRepositoryImpl getInstancia() {
 		if(fri == null) {
-			fri = new FactoryRepositoryImpl(em);
+			fri = new FactoryRepositoryImpl();
 		}
 		return fri;
 	}

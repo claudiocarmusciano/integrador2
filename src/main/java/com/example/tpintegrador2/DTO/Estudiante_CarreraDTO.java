@@ -1,6 +1,8 @@
 package com.example.tpintegrador2.DTO;
 
-public class Estudiante_CarreraDTO {
+import java.io.Serializable;
+
+public class Estudiante_CarreraDTO implements Serializable {
     private int estudiante;
     private int carrera;
     private int antiguedad;
@@ -30,5 +32,15 @@ public class Estudiante_CarreraDTO {
 
     public boolean isGraduado() {
         return graduado;
+    }
+
+    @Override
+    public String toString() {
+        return "Estudiante_CarreraDTO{" +
+                "estudiante=" + estudiante +
+                ", carrera=" + carrera +
+                ", antiguedad=" + antiguedad +
+                ", graduado=" + graduado +
+                '}';
     }
 }

@@ -1,7 +1,8 @@
 package com.example.tpintegrador2.Entidades;
 
 import jakarta.persistence.*;
-import java.util.List;
+
+import java.util.LinkedList;
 
 @Entity
 public class Carrera {
@@ -9,8 +10,8 @@ public class Carrera {
     private int idCarrera;
     @Column
     private String nombreCarrera;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "carrera")
-    private List<Estudiante_Carrera> estudianteCarrera;
+    @OneToMany(mappedBy = "carrera")
+    private LinkedList<Estudiante_Carrera> estudianteCarrera;
 
     public Carrera() {
         super();
@@ -19,6 +20,7 @@ public class Carrera {
     public Carrera(int idCarrera, String nombreCarrera) {
         this.idCarrera = idCarrera;
         this.nombreCarrera = nombreCarrera;
+        this.estudianteCarrera = new LinkedList<>();
     }
 
     public int getIdCarrera() {
