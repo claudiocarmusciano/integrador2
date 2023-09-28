@@ -159,6 +159,9 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
    	             estudianteCarrera.setEstudiante(estudiante);
    	             estudianteCarrera.setCarrera(carrera);
 
+   	            
+   	             carrera.agregarEstudianteCarrera(estudianteCarrera); // Agregar a la lista y sincronizar
+
    	             em.persist(estudianteCarrera);
    	             tx.commit();
 
@@ -172,5 +175,31 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
    	    } finally {
    	        em.close();
    	    }
+}
+    
+    public List<EstudianteDTO> getEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudadResidencia){
+    	EntityManager em = EntityFactory.getInstance().createEntityManager();
+    	
+    	try {
+    		String jpql = "SELECT e FROM Estudiante e " +
+                    	 "JOIN e.carreras c " +
+                    	 "WHERE c.nombre = :nombreCarrera " +
+                    	 "AND e.ciudadResidencia = :ciudadResidencia";
+    		TypedQuery<Estudiante> query = em.createQuery(jpql,Estudiante.class);
+    		query.setParameter("nombreCarrera", nombreCarrera);
+    		query.setParameter("ciudadResidencia", ciudadResidencia);
+    		
+    		List<Estudiante> estudiantes= query.getResultList();
+    		
+    		return convertEstudianteDTO(estudiantes);
+    		
+    		
+    	}catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+    	return null;
+
     }
+
 }

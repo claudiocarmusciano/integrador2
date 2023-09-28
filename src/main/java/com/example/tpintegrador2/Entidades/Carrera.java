@@ -26,7 +26,12 @@ public class Carrera {
     public int getIdCarrera() {
         return idCarrera;
     }
-
+    public void agregarEstudianteCarrera(Estudiante_Carrera estudianteCarrera) {
+        if (estudianteCarrera != null) {
+            this.estudianteCarrera.add(estudianteCarrera);
+            estudianteCarrera.setCarrera(this); // Sincronizar la otra parte de la relación
+        }
+    }
     public void setIdCarrera(int idCarrera) {
         this.idCarrera = idCarrera;
     }

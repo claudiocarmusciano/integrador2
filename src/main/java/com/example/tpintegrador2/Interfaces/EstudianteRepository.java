@@ -9,8 +9,9 @@ public interface EstudianteRepository {
     void altaEstudiante (int id,  String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta);
  //   List <Estudiante> recuperarEstudiantesOrdenados (String criterioOrdenamiento);
     EstudianteDTO recuperarEstudiantePorLibreta (int nroLibreta);
+    List<EstudianteDTO>	recuperarEstudiantesOrdenados(String criterioOrdenamiento);
     List<EstudianteDTO> recuperarEstudiantesPorGenero (String genero);
+    List<EstudianteDTO> getEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudadResidencia);
     void matricularEstudianteEnCarrera(int idEstudiante, int idCarrera);
-
 
 }
