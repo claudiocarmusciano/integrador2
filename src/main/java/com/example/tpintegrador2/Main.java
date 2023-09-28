@@ -36,7 +36,7 @@ public class Main {
             FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
             //llamo a estudiante
             //int id , String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta
-            fr.getEstudianteRepository().altaEstudiante(1,"Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325);
+            fr.getEstudianteRepository().altaEstudiante("Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325);
 
             
 

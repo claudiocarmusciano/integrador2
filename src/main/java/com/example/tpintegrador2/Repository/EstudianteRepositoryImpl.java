@@ -20,10 +20,10 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	
 	@Override
 									//1,"Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325)
-	public void altaEstudiante(int id, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
+	public void altaEstudiante(String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
 	    try (EntityManager em = EntityFactory.getInstance().createEntityManager()) {
 	        em.getTransaction().begin();
-	        Estudiante estudiante = new Estudiante(id, nombre, apellido, edad, genero, nroDocumento, ciudadResidencia, nroLibreta);
+	        Estudiante estudiante = new Estudiante(nombre, apellido, edad, genero, nroDocumento, ciudadResidencia, nroLibreta);
 	        em.persist(estudiante);
 	        em.getTransaction().commit();
 	    } catch (Exception e) {

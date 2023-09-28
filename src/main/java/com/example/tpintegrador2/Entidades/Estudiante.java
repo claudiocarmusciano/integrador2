@@ -32,8 +32,8 @@ public class Estudiante {
         super();
     }
 
-    public Estudiante(int idEstudiante, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
-        this.idEstudiante = idEstudiante;
+    public Estudiante( String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
+        //this.idEstudiante = idEstudiante;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;

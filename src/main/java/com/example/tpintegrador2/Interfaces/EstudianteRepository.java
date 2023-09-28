@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EstudianteRepository {
 
-    void altaEstudiante (int id,  String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta);
+    void altaEstudiante (String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta);
  //   List <Estudiante> recuperarEstudiantesOrdenados (String criterioOrdenamiento);
     EstudianteDTO recuperarEstudiantePorLibreta (int nroLibreta);
     List<EstudianteDTO>	recuperarEstudiantesOrdenados(String criterioOrdenamiento);
