@@ -19,10 +19,19 @@ import jakarta.persistence.TypedQuery;
 public class EstudianteRepositoryImpl implements EstudianteRepository {
 	
 	@Override
-    public void altaEstudiante(int id, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
-		Estudiante estudiante = new Estudiante(id, nombre, apellido, edad, genero, nroDocumento, ciudadResidencia, nroLibreta);
-    	agregarEstudiante(estudiante);
-    }
+									//1,"Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325)
+	public void altaEstudiante(int id, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
+	    try (EntityManager em = EntityFactory.getInstance().createEntityManager()) {
+	        em.getTransaction().begin();
+	        Estudiante estudiante = new Estudiante(id, nombre, apellido, edad, genero, nroDocumento, ciudadResidencia, nroLibreta);
+	        em.persist(estudiante);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        // Manejo de excepciones, si es necesario
+	        e.printStackTrace();
+	        // Puedes lanzar una excepción personalizada o realizar otro manejo de errores aquí
+	    }
+	}
 
 	private void agregarEstudiante(Estudiante estudiante) {
 		 EntityManager em = EntityFactory.getInstance().createEntityManager();		 

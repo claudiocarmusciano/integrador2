@@ -18,8 +18,10 @@ public class Estudiante_Carrera {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "carrera", referencedColumnName = "idCarrera")
     private Carrera carrera;
+    
 
-    private int antiguedad;
+  
+	private int antiguedad;
     private boolean graduado;
 
     public Estudiante_Carrera() {

@@ -43,7 +43,7 @@ public class Main {
             // a) Dar de alta un estudiante
 
             // DEBEMOS CREAR UNA CLASE EstudianteRepositoryImpl QUE IMPLEMENTE EstudianteRepository
-            // YA QUE EstudianteRepository NO PUEDE SER INSTANCIADA.
+   /*         // YA QUE EstudianteRepository NO PUEDE SER INSTANCIADA.
             EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
             estudianteRepository.altaEstudiante(1, "Nombre1", "Apellido1", 20, "M", 123456, "Ciudad1", 101);
 
@@ -85,7 +85,7 @@ public class Main {
 
             // Hacer un método en EstudianteRepository
 
-
+*/
 
             transaction.commit();
 
