@@ -32,7 +32,7 @@ public class Estudiante {
         super();
     }
 
-    public Estudiante( String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
+    public Estudiante(String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
         //this.idEstudiante = idEstudiante;
         this.nombre = nombre;
         this.apellido = apellido;
