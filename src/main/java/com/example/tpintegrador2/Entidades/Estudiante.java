@@ -28,7 +28,7 @@ public class Estudiante {
     private List<Estudiante_Carrera> estudianteCarrera;
 
 
-    public Estudiante() {
+    public Estudiante(int nroDocumento, int libreta, String nombre, String apellido, int edad, String genero, String ciudadResidencia, int nroLibreta) {
         super();
     }
 
