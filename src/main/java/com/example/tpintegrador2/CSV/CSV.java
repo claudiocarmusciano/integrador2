@@ -1,20 +1,27 @@
-package com.example.tpintegrador2.CSV;
+package com.example.tpintegrador2.csv;
 
 import com.example.tpintegrador2.Entidades.Carrera;
 import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Entidades.Estudiante_Carrera;
+import com.example.tpintegrador2.Factory.EntityFactory;
+import com.example.tpintegrador2.Factory.FactoryRepository;
+import com.example.tpintegrador2.Factory.FactoryRepositoryImpl;
 import com.example.tpintegrador2.Interfaces.CarreraRepository;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
 import com.example.tpintegrador2.Interfaces.Estudiante_CarreraRepository;
 import com.example.tpintegrador2.Repository.CarreraRepositoryImpl;
 import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
 import com.example.tpintegrador2.Repository.Estudiante_CarreraRepositoryImpl;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -35,65 +42,55 @@ public class CSV {
         this.carRep = new CarreraRepositoryImpl();
         this.estud_CarRep = new Estudiante_CarreraRepositoryImpl();
     }
-    public void agregarSCV(String carrera, String estudiante, String estudianteCarrera ) throws IOException {
-        String csvDir = System.getProperty("user.dir") + "/" + estudiante;
-        CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
 
-        for (CSVRecord row : parser) {
-            Estudiante estud = new Estudiante(row.get("nombre"),row.get("apellido"), Integer.parseInt(row.get("edad")),
-                    row.get("genero"),(Integer.parseInt(row.get("nroDocumento"))), row.get("ciudadResidencia"),
-                    Integer.parseInt(row.get("nroLibreta")));
+    public void readCSV(String csvCarrera, String csvEstudiante){
+        EntityFactory entityFactory = EntityFactory.getInstance();
+        EntityManager em = entityFactory.createEntityManager();
 
-            estudiantes.add(estud);
-        }
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
 
-        String csvDirC = System.getProperty("user.dir") + "/" + carrera;
-        CSVParser parserC = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDirC));
+        String path = "src/main/java/com/example/tpintegrador2/CSV/datos";
+        try {
+            /// lectura CSV Estudiante ///
+            String csvDir = path + "/" + csvEstudiante;
+            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
 
-        for (CSVRecord row : parser) {
-            Carrera carrer = new Estudiante(row.get("nombre"),row.get("apellido"), Integer.parseInt(row.get("edad")), row.get("genero"),(Integer.parseInt(row.get("nroDocumento")), row.get("ciudadResidencia"),Integer.parseInt(row.get("nroLibreta")));
 
-            carreras.add(carrer);
-        }
 
-        String csvDirEC = System.getProperty("user.dir") + "/" + estudianteCarrera;
-        CSVParser parserEC = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDirEC));
 
-        for (CSVRecord row : parser) {
-            Estudiante estudiante_Carrera = new Estudiante_Carrera(Integer.parseInt(row.get("antiguedad")), boolean(row.get("graduado")));
+            for(CSVRecord row: parser) {
+                fr.getEstudianteRepository().altaEstudiante(row.get("nombre"),row.get("apellido"), Integer.parseInt(row.get("edad")),
+                        row.get("genero"),(Integer.parseInt(row.get("nroDocumento"))), row.get("ciudadResidencia"),
+                        Integer.parseInt(row.get("nroLibreta")));
 
-            estudiantes.add(estudiante_Carrera);
-        }
-        insert();
-    }
-
-    public Carrera getCarrera(int id){
-        for (Carrera c:carreras){
-            if (c.getId()==id){
-                return c;
             }
-        }
-        return null;
-    }
 
-    public Estudiante getEstudiante(int id){
-        for (Estudiante e:estudiantes){
-            if (e.getIdEstudiante() == id){
-                return e;
+            /// lectura CSV Carrera ///
+            csvDir = path + "/" + csvCarrera;
+            parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
+
+//            transaction = em.getTransaction();
+//            transaction.begin();
+//            fr = FactoryRepositoryImpl.getInstancia();
+
+            for (CSVRecord row : parser) {
+                fr.getCarreraRepository().altaCarreras(Integer.parseInt(row.get("id_carrera")), row.get("nombreCarrera"));
             }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            em.close();
+            entityFactory.closeEntityManagerFactory();
         }
-        return null;
     }
 
-    private void insert(){
-        for(Estudiante e:estudiantes){
-            estudRep.altaEstudiante(e);
-        }
-        for(Carrera c:carreras){
-            carRep.altaCarreras(c);
-        }
-        for (Estudiante_Carrera eC:estudianteCarrera){
-            estud_CarRep.matricularEstudiante(eC);
-        }
-    }
+
 }
+
+
+
+
