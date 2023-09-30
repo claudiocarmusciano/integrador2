@@ -1,4 +1,4 @@
-package com.example.tpintegrador2.csv;
+package com.example.tpintegrador2.CSV;
 
 import com.example.tpintegrador2.Entidades.Carrera;
 import com.example.tpintegrador2.Entidades.Estudiante;
@@ -83,6 +83,14 @@ public class CSV {
 //        }
 //    }
 
+
+
+
+
+
+
+
+
     public void readCSV(String csvCarrera, String csvEstudiante) {
         EntityFactory entityFactory = EntityFactory.getInstance();
         String path = "src/main/java/com/example/tpintegrador2/CSV/datos";
@@ -103,10 +111,10 @@ public class CSV {
             }
 
             // lectura CSV Carrera
-            csvDir = path + "/" + csvCarrera;
-            parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
+            String csvDirC = path + "/" + csvCarrera;
+            CSVParser parserC = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDirC));
 
-            for (CSVRecord row : parser) {
+            for (CSVRecord row : parserC) {
                 fr.getCarreraRepository().altaCarreras(row.get("nombreCarrera"));
             }
 
