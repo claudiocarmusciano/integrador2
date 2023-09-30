@@ -18,8 +18,7 @@ public class Carrera {
         super();
     }
 
-    public Carrera(int idCarrera, String nombreCarrera) {
-        this.idCarrera = idCarrera;
+    public Carrera(String nombreCarrera) {
         this.nombreCarrera = nombreCarrera;
         this.estudianteCarrera = new LinkedList<>();
     }

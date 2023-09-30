@@ -107,7 +107,7 @@ public class CSV {
             parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
 
             for (CSVRecord row : parser) {
-                fr.getCarreraRepository().altaCarreras(Integer.parseInt(row.get("idCarrera")), row.get("nombreCarrera"));
+                fr.getCarreraRepository().altaCarreras(row.get("nombreCarrera"));
             }
 
             transaction.commit(); // Realiza la transacción

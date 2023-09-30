@@ -30,8 +30,8 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		}
 	}
 	
-	public void altaCarreras(int idCarrera, String nombreCarrera) {
-		Carrera carrera = new Carrera(idCarrera,nombreCarrera);
+	public void altaCarreras(String nombreCarrera) {
+		Carrera carrera = new Carrera(nombreCarrera);
 		agregarCarrera(carrera);
 	}
 		

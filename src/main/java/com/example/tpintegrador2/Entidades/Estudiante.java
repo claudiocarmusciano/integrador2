@@ -45,7 +45,7 @@ public class Estudiante {
     }
 
     public Estudiante() {
-        
+
     }
 
     public int getIdEstudiante() {
