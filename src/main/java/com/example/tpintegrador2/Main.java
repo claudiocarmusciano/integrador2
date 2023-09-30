@@ -1,6 +1,6 @@
 package com.example.tpintegrador2;
 
-import com.example.tpintegrador2.csv.CSV;
+import com.example.tpintegrador2.CSV.CSV;
 import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Factory.EntityFactory;
 import com.example.tpintegrador2.Factory.FactoryRepository;
@@ -53,6 +53,8 @@ public class Main {
 
         CSV csv = new CSV();
         csv.readCSV("carreras.csv", "estudiantes.csv");
+        csv.readCarreraCSV("carreras.csv", "estudiantes.csv");
+        EntityFactory.getInstance().closeEntityManagerFactory();
 
 
 //            // b) Matricular un estudiante en una carrera

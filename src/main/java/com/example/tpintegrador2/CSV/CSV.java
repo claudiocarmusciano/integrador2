@@ -1,4 +1,4 @@
-package com.example.tpintegrador2.csv;
+package com.example.tpintegrador2.CSV;
 
 import com.example.tpintegrador2.Entidades.Carrera;
 import com.example.tpintegrador2.Entidades.Estudiante;
@@ -102,9 +102,24 @@ public class CSV {
                         Integer.parseInt(row.get("nroLibreta")));
             }
 
+            transaction.commit(); // Realiza la transacción
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readCarreraCSV(String csvCarrera, String csvEstudiante) {
+        EntityFactory entityFactory = EntityFactory.getInstance();
+        String path = "src/main/java/com/example/tpintegrador2/CSV/datos";
+
+        try (EntityManager em = entityFactory.createEntityManager()) { // Abre el EntityManager con try-with-resources
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
+
             // lectura CSV Carrera
-            csvDir = path + "/" + csvCarrera;
-            parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
+            String csvDir = path + "/" + csvCarrera;
+            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
 
             for (CSVRecord row : parser) {
                 fr.getCarreraRepository().altaCarreras(row.get("nombreCarrera"));
@@ -113,10 +128,10 @@ public class CSV {
             transaction.commit(); // Realiza la transacción
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            entityFactory.closeEntityManagerFactory();
         }
     }
+
+
 
 }
 
