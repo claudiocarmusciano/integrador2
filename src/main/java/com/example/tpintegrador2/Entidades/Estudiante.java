@@ -44,6 +44,10 @@ public class Estudiante {
         //this.carreras = carreras;
     }
 
+    public Estudiante() {
+        
+    }
+
     public int getIdEstudiante() {
         return idEstudiante;
     }

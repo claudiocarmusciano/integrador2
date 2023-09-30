@@ -7,6 +7,7 @@ import java.util.LinkedList;
 @Entity
 public class Carrera {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCarrera;
     @Column
     private String nombreCarrera;

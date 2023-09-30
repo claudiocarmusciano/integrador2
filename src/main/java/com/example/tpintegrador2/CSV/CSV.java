@@ -43,51 +43,80 @@ public class CSV {
         this.estud_CarRep = new Estudiante_CarreraRepositoryImpl();
     }
 
-    public void readCSV(String csvCarrera, String csvEstudiante){
+//    public void readCSV(String csvCarrera, String csvEstudiante){
+//        EntityFactory entityFactory = EntityFactory.getInstance();
+//        EntityManager em = entityFactory.createEntityManager();
+//
+//        EntityTransaction transaction = em.getTransaction();
+//        transaction.begin();
+//        FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
+//
+//        String path = "src/main/java/com/example/tpintegrador2/CSV/datos";
+//        try {
+//            /// lectura CSV Estudiante ///
+//            String csvDir = path + "/" + csvEstudiante;
+//            CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
+//
+//            for(CSVRecord row: parser) {
+//                fr.getEstudianteRepository().altaEstudiante(row.get("nombre"),row.get("apellido"), Integer.parseInt(row.get("edad")),
+//                        row.get("genero"),(Integer.parseInt(row.get("nroDocumento"))), row.get("ciudadResidencia"),
+//                        Integer.parseInt(row.get("nroLibreta")));
+//
+//            }
+//
+//            em.close();
+//
+//            /// lectura CSV Carrera ///
+//            csvDir = path + "/" + csvCarrera;
+//            parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
+//
+//            for (CSVRecord row : parser) {
+//                fr.getCarreraRepository().altaCarreras(Integer.parseInt(row.get("idCarrera")), row.get("nombreCarrera"));
+//            }
+//
+//
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        } finally {
+//            em.close();
+//            entityFactory.closeEntityManagerFactory();
+//        }
+//    }
+
+    public void readCSV(String csvCarrera, String csvEstudiante) {
         EntityFactory entityFactory = EntityFactory.getInstance();
-        EntityManager em = entityFactory.createEntityManager();
-
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
-
         String path = "src/main/java/com/example/tpintegrador2/CSV/datos";
-        try {
-            /// lectura CSV Estudiante ///
+
+        try (EntityManager em = entityFactory.createEntityManager()) { // Abre el EntityManager con try-with-resources
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            FactoryRepository fr = FactoryRepositoryImpl.getInstancia();
+
+            // lectura CSV Estudiante
             String csvDir = path + "/" + csvEstudiante;
             CSVParser parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
 
-
-
-
-            for(CSVRecord row: parser) {
-                fr.getEstudianteRepository().altaEstudiante(row.get("nombre"),row.get("apellido"), Integer.parseInt(row.get("edad")),
-                        row.get("genero"),(Integer.parseInt(row.get("nroDocumento"))), row.get("ciudadResidencia"),
+            for (CSVRecord row : parser) {
+                fr.getEstudianteRepository().altaEstudiante(row.get("nombre"), row.get("apellido"), Integer.parseInt(row.get("edad")),
+                        row.get("genero"), Integer.parseInt(row.get("nroDocumento")), row.get("ciudadResidencia"),
                         Integer.parseInt(row.get("nroLibreta")));
-
             }
 
-            /// lectura CSV Carrera ///
+            // lectura CSV Carrera
             csvDir = path + "/" + csvCarrera;
             parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader(csvDir));
 
-//            transaction = em.getTransaction();
-//            transaction.begin();
-//            fr = FactoryRepositoryImpl.getInstancia();
-
             for (CSVRecord row : parser) {
-                fr.getCarreraRepository().altaCarreras(Integer.parseInt(row.get("id_carrera")), row.get("nombreCarrera"));
+                fr.getCarreraRepository().altaCarreras(Integer.parseInt(row.get("idCarrera")), row.get("nombreCarrera"));
             }
 
-
-        }catch (Exception e){
+            transaction.commit(); // Realiza la transacción
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            em.close();
             entityFactory.closeEntityManagerFactory();
         }
     }
-
 
 }
 
