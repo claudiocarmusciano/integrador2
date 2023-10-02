@@ -38,7 +38,7 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 	public CarreraDTO obtenerCarreraPorId(int idCarrera) {
 		EntityManager em = EntityFactory.getInstance().createEntityManager();
 		try {
-			String jpql = "Select c from Carrera c where e.idCarrera = :idCarrera";
+			String jpql = "Select c from Carrera c where c.idCarrera = :idCarrera";
 			TypedQuery<Carrera> query = em.createQuery(jpql, Carrera.class);
 			query.setParameter("idCarrera", idCarrera);
 			Carrera carrera = query.getSingleResult();
@@ -50,7 +50,21 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		}
 		return null;
 	}
-	
+
+	public Carrera getCarreraById(int idCarrera) {
+		EntityManager em = EntityFactory.getInstance().createEntityManager();
+		try {
+			String jpql = "Select c from Carrera c where c.idCarrera = :idCarrera";
+			TypedQuery<Carrera> query = em.createQuery(jpql, Carrera.class);
+			query.setParameter("idCarrera", idCarrera);
+			Carrera carrera = query.getSingleResult();
+			
+			return carrera;
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+    }
 	
 	private CarreraDTO convertirCarreraDTO(Carrera carrera) {
 		 CarreraDTO carreraDto= new CarreraDTO(

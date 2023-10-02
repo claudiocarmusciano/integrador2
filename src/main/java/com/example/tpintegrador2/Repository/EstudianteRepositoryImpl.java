@@ -50,6 +50,24 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	}
 
 	@Override
+	public Estudiante getEstudianteById(int idEstudiante) {
+		EntityManager em = EntityFactory.getInstance().createEntityManager();		 
+		try {
+			   String jpql = "SELECT e FROM Estudiante e WHERE e.idEstudiante = :idEstudiante";
+			   TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+
+			   query.setParameter("idEstudiante", idEstudiante);
+			   Estudiante estudiante = query.getSingleResult(); // Esta línea ejecuta la consulta y obtiene el estudiante
+			   
+			   return estudiante;
+		   } catch (Exception e) {
+			   return null;
+		   } finally {
+			   em.close();
+		   }
+	}
+
+	@Override
 	public EstudianteDTO recuperarEstudiantePorLibreta(int nroLibreta) {
 		EntityManager em = EntityFactory.getInstance().createEntityManager();		 
 		 try {
@@ -210,5 +228,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     	return null;
 
     }
+
+
 
 }

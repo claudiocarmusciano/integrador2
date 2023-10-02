@@ -33,7 +33,7 @@ public class Main {
         }
 
         CSV csv = new CSV();
-        csv.readCSV("carreras.csv", "estudiantes.csv");
+        csv.readCSV("carreras.csv", "estudiantes.csv","estudianteCarrera.csv");
 
 
 //            // b) Matricular un estudiante en una carrera

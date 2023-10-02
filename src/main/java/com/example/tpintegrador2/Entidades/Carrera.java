@@ -12,7 +12,8 @@ public class Carrera {
     private int idCarrera;
     @Column
     private String nombreCarrera;
-    @OneToMany(mappedBy = "carrera")
+    
+    @OneToMany(mappedBy = "carrera", fetch = FetchType.EAGER)
     private List<Estudiante_Carrera> estudianteCarrera;
 
     public Carrera() {

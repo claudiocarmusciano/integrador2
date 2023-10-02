@@ -24,7 +24,8 @@ public class Estudiante {
     private String ciudadResidencia;
     @Column(nullable=false)
     private int nroLibreta;
-    @OneToMany (mappedBy = "estudiante")
+
+    @OneToMany(mappedBy = "estudiante", fetch = FetchType.EAGER)
     private List<Estudiante_Carrera> estudianteCarrera;
 
 

@@ -18,16 +18,17 @@ import jakarta.persistence.TypedQuery;
 
 public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepository {
 
-	@Override
-	public void agregarMatricula(Estudiante_Carrera matricula) {
-		
-		
-	}
-	
-	private void altaMatricula(Estudiante estudiante, Carrera carrera, int antiguedad, boolean graduado) {
-		Estudiante_Carrera matricula = new Estudiante_Carrera(estudiante, carrera, antiguedad, graduado);
-		
-		agregarMatricula(matricula);
+
+
+	public void altaMatricula(Estudiante estudiante, Carrera carrera, int antiguedad, boolean graduado) {
+		try (EntityManager em = EntityFactory.getInstance().createEntityManager()) {
+	        em.getTransaction().begin();
+			Estudiante_Carrera matricula = new Estudiante_Carrera(estudiante, carrera, antiguedad, graduado);
+	        em.persist(matricula);
+	        em.getTransaction().commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	
 	}
 	
@@ -52,7 +53,13 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 		}
 		return null;
 	}
-	
+	public Estudiante getEstudianteById(int idEstudiante) {
+        EntityManager em = EntityFactory.getInstance().createEntityManager();
+		Estudiante estudiante = em.find(Estudiante.class, idEstudiante);
+		return estudiante;
+    }
+
+  
 	private Estudiante_CarreraDTO convertEstudianteCarreraDTO(Estudiante_Carrera estudianteCarrera) {
 	    Estudiante_CarreraDTO estudianteCarreraDTO = new Estudiante_CarreraDTO(
 	        estudianteCarrera.getEstudiante().getIdEstudiante(), // estudiante

@@ -9,20 +9,23 @@ import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Entidades.Estudiante_Carrera;
 
 public interface Estudiante_CarreraRepository {
-	 	
-	  	void agregarMatricula(Estudiante_Carrera matricula);
 
-	  	Estudiante_CarreraDTO obtenerMatriculaPorId(int nroLibreta, int nroDoc, int idCarrera);
+	// void agregarMatricula(Estudiante_Carrera matricula);
 
-	    void matricularEstudiante(Estudiante estudiante, Carrera carrera);
+	void altaMatricula(Estudiante estudiante, Carrera carrera, int antiguedad, boolean graduado);
 
-	    void matricularEstudiante(Estudiante estudiante, Carrera carrera, int anioInscripcion);
+	Estudiante_CarreraDTO obtenerMatriculaPorId(int nroLibreta, int nroDoc, int idCarrera);
 
-	    List<Estudiante_CarreraDTO> obtenerTodasLasMatriculas();
+	void matricularEstudiante(Estudiante estudiante, Carrera carrera);
 
-	    List<EstudianteDTO> obtenerListaFiltrada(String ciudad, int idCarrera);
+	void matricularEstudiante(Estudiante estudiante, Carrera carrera, int anioInscripcion);
+
+	List<Estudiante_CarreraDTO> obtenerTodasLasMatriculas();
+
+	List<EstudianteDTO> obtenerListaFiltrada(String ciudad, int idCarrera);
 
 
-	    List<Estudiante_CarreraDTO> obtenerReporte();
+
+	List<Estudiante_CarreraDTO> obtenerReporte();
 
 }
