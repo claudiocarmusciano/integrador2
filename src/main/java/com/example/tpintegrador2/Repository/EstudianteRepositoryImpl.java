@@ -33,21 +33,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	    }
 	}
 
-	private void agregarEstudiante(Estudiante estudiante) {
-		 EntityManager em = EntityFactory.getInstance().createEntityManager();		 
-	        try {
-	            em.getTransaction().begin();
-	            em.persist(estudiante);
-	            em.getTransaction().commit();
-	        } catch (Exception e) {
-	            if (em.getTransaction() != null && em.getTransaction().isActive()) {
-	                em.getTransaction().rollback();
-	            }
-	            throw e;
-	        } finally {
-	            em.close();
-	        }
-	}
+
 
 	@Override
 	public Estudiante getEstudianteById(int idEstudiante) {
@@ -146,24 +132,21 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     }
 
 	@Override
+
 	public List<EstudianteDTO> recuperarEstudiantesPorGenero(String genero) {
 		EntityManager em = EntityFactory.getInstance().createEntityManager();
-		String consulta = "Select e from Estudiante e where e.genero = ?1";
 
-		try {		
-			Query query = createQuery(consulta);
-	        query.setParameter("1", genero);
-	        List<Estudiante> estudiantes = query.getResultList();	        
+		String jpql = "SELECT e FROM Estudiante e WHERE e.genero = :genero"; // Utiliza :genero como parámetro
 
-	        return convertEstudianteDTO(estudiantes);
-			
-		}catch (Exception e) {
+		try {
+			TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
+			query.setParameter("genero", genero);
+			List<Estudiante> estudiantes = query.getResultList();
+
+			return convertEstudianteDTO(estudiantes);
 		} finally {
-	        em.close();
-	    }
-		
-		return null;
-				
+			em.close();
+		}
 	}
 
 

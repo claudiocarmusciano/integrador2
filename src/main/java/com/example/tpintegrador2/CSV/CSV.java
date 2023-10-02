@@ -184,7 +184,7 @@ public class CSV {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            entityFactory.closeEntityManagerFactory();
+         //   entityFactory.closeEntityManagerFactory();
         }
     }
 

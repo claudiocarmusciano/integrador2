@@ -1,14 +1,22 @@
 package com.example.tpintegrador2;
 
 import com.example.tpintegrador2.CSV.CSV;
+import com.example.tpintegrador2.DTO.EstudianteDTO;
+import com.example.tpintegrador2.Entidades.Estudiante;
+import com.example.tpintegrador2.Interfaces.EstudianteRepository;
+import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        try {
 
         ///////  Código para borrar las tablas de la base de datos  /////////////////////
         String url = "jdbc:mysql://localhost:3306/integrador2"; // Cambia esto por la URL de tu base de datos
@@ -35,54 +43,70 @@ public class Main {
         CSV csv = new CSV();
         csv.readCSV("carreras.csv", "estudiantes.csv","estudianteCarrera.csv");
 
+        // a) Dar de alta un estudiante
 
-//            // b) Matricular un estudiante en una carrera
-//
-//            int estudianteId = 1;
-//            int carreraId = 101;
-//            estudianteRepository.matricularEstudianteEnCarrera(estudianteId, carreraId);
-//
-//
-//
-//            // c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
-//
-//         //   List<Estudiante> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados("nombre");
-//
-//
-//
-//            // d) Recuperar un estudiante, en base a su número de libreta universitaria
-//
-//      //      int estudiantePorLibreta = estudianteRepository.recuperarEstudiantePorLibreta(101);
-//
-//
-//
-//            // e) Recuperar todos los estudiantes, en base a su género
-//
-//         //   List<Estudiante> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero("M");
-//
-//
-//
-//            // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
-//
-//            // Hacer un método en EstudianteRepository
-//
-//
-//
-//            // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-//
-//            // Hacer un método en EstudianteRepository
-//
-//*/
-//
-//            transaction.commit();
-//
-//            // Generar reporte de las carreras
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            em.close();
-//            entityFactory.closeEntityManagerFactory();
-//        }
+        System.out.println("Dar de alta un estudiante:");
+        EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
+        estudianteRepository.altaEstudiante("Andrea", "Gonzalez", 25, "Fame", 40833743, "Tandil", 4632);
+        System.out.println();
+
+        // b) Matricular un estudiante en una carrera
+
+        System.out.println("Matricular un estudiante en una carrera:");
+        int estudianteId = 105;  // Gonzalez Andrea
+        int carreraId = 1;  // TUDAI
+        estudianteRepository.matricularEstudianteEnCarrera(estudianteId, carreraId);
+        System.out.println();
+
+
+        //c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
+
+        System.out.println("Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple");
+        List<EstudianteDTO> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados("nombre");
+        for (EstudianteDTO estudiante : estudiantesOrdenados) {
+            System.out.println(estudiante);
+        }
+        System.out.println();
+
+
+       // d) Recuperar un estudiante, en base a su número de libreta universitaria
+
+        System.out.println("Recuperar un estudiante, en base a su número de libreta universitaria");
+        EstudianteDTO estudiantePorLibreta = estudianteRepository.recuperarEstudiantePorLibreta(34978);
+        System.out.println(estudiantePorLibreta);
+        System.out.println();
+
+
+
+        // e) Recuperar todos los estudiantes, en base a su género
+
+        System.out.println("Recuperar todos los estudiantes, en base a su género");
+        List<EstudianteDTO> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero("Male");
+        for (EstudianteDTO estudiante : estudiantesPorGenero) {
+            System.out.println(estudiante);
+        }
+        System.out.println();
+
+
+       // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
+
+
+
+
+
+          // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
+
+            System.out.println("Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia");
+            List<EstudianteDTO> estudiantesRecuperados = estudianteRepository.getEstudiantesPorCarreraYCiudad("TUDAI", "Ingenieria de Sistemas");
+            for (EstudianteDTO estudiante : estudiantesRecuperados) {
+                System.out.println(estudiante);
+            }
+            System.out.println();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 }
