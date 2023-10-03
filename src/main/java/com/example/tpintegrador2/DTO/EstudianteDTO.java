@@ -51,14 +51,9 @@ public class EstudianteDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "EstudianteDTO{" +
-                "fullName='" + fullName + '\'' +
-                ", genero='" + genero + '\'' +
-                ", ciudadResidencia='" + ciudadResidencia + '\'' +
-                ", edad=" + edad +
-                ", nroDocumento=" + nroDocumento +
-                ", nroLibreta=" + nroLibreta +
-                ", carreras=" + carreras +
-                '}';
+        return String.format("%-40s %-10s %-30s %20d %20s %20s %20d",
+                        fullName, genero, ciudadResidencia, edad, nroDocumento, nroLibreta, carreras);
     }
+
+
 }

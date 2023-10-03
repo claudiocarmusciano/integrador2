@@ -62,6 +62,7 @@ public class Main {
         //c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
 
         System.out.println("Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple");
+        System.out.printf("%-40s\t%-10s\t%-30s\t%20s\t%20s\t%20s\t%20s %n", "Nombre", "Género", "Ciudad", "Edad", "DNI", "Nro. Libreta", "Carreras");
         List<EstudianteDTO> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados("nombre");
         for (EstudianteDTO estudiante : estudiantesOrdenados) {
             System.out.println(estudiante);
@@ -81,6 +82,7 @@ public class Main {
         // e) Recuperar todos los estudiantes, en base a su género
 
         System.out.println("Recuperar todos los estudiantes, en base a su género");
+        System.out.printf("%-40s\t%-10s\t%-30s\t%20s\t%20s\t%20s\t%20s %n", "Nombre", "Género", "Ciudad", "Edad", "DNI", "Nro. Libreta", "Carreras");
         List<EstudianteDTO> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero("Male");
         for (EstudianteDTO estudiante : estudiantesPorGenero) {
             System.out.println(estudiante);
