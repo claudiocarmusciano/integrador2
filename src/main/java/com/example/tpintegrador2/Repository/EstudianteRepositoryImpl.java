@@ -81,9 +81,8 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 			        estudiante.getCiudadResidencia(),
 			        estudiante.getEdad(),
 			        estudiante.getNroDocumento(),
-			        estudiante.getNroLibreta(),
-			        estudiante.getEstudianteCarrera().size() // estamos contando cuántas carreras tiene el estudiante
-			    );
+			        estudiante.getNroLibreta()
+		        );
 			    return estudianteDTO;
 	}
 	
@@ -189,26 +188,31 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     
     public List<EstudianteDTO> getEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudadResidencia){
     	EntityManager em = EntityFactory.getInstance().createEntityManager();
-    	
+		List<EstudianteDTO> lista = new ArrayList<>();
+
     	try {
-    		String jpql = "SELECT e FROM Estudiante e " +
-                    	 "JOIN e.carreras c " +
-                    	 "WHERE c.nombreCarrera = :nombreCarrera " +
-                    	 "AND e.ciudadResidencia = :ciudadResidencia";
-    		TypedQuery<Estudiante> query = em.createQuery(jpql,Estudiante.class);
+    		
+
+		 TypedQuery<EstudianteDTO> query = em.createQuery(
+			 "SELECT NEW com.example.tpintegrador2.DTO.EstudianteDTO(e.nombre, e.genero, e.ciudadResidencia, e.edad, e.nroDocumento,e.nroLibreta) " +
+			 "FROM Estudiante_Carrera ec " +
+			 "JOIN ec.estudiante e " +
+			 "JOIN ec.carrera c " +
+			 "WHERE c.nombreCarrera = :nombreCarrera " +
+			 "AND e.ciudadResidencia = :ciudadResidencia", EstudianteDTO.class);
+							
     		query.setParameter("nombreCarrera", nombreCarrera);
     		query.setParameter("ciudadResidencia", ciudadResidencia);
-    		
-    		List<Estudiante> estudiantes= query.getResultList();
-    		
-    		return convertEstudianteDTO(estudiantes);
-    		
+
+			lista.addAll(query.getResultList());
+
     		
     	}catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("Error en getEstudiantesPorCarreraYCiudad" + e);
 		}
     	
-    	return null;
+    	return lista;
 
     }
 

@@ -100,9 +100,9 @@ public class Main {
 
 
           // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-/*
+
             System.out.println("Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia");
-            List<EstudianteDTO> estudiantesRecuperados = estudianteRepository.getEstudiantesPorCarreraYCiudad("TUDAI", "Ingenieria de Sistemas");
+            List<EstudianteDTO> estudiantesRecuperados = estudianteRepository.getEstudiantesPorCarreraYCiudad("TUDAI", "Arroio do Meio");
             for (EstudianteDTO estudiante : estudiantesRecuperados) {
                 System.out.println(estudiante);
             }
