@@ -31,25 +31,22 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 	    }
 	
 	}
+
 	
 	@Override
-	public Estudiante_CarreraDTO obtenerMatriculaPorId(int nroLibreta, int nroDoc, int idCarrera) {
+	public Estudiante_CarreraDTO obtenerMatriculaPorId(int idCarrera) {
 		EntityManager em = EntityFactory.getInstance().createEntityManager();
 		try {
 			String jpql = "SELECT ec FROM Estudiante_Carrera ec " +
-		                  "WHERE ec.estudiante.nroLibreta = :nroLibreta " +
-		                  "AND ec.estudiante.nroDocumento = :nroDoc " +
-		                  "AND ec.carrera.idCarrera = :idCarrera";
+		                  "WHERE  ec.idCarrera = :idCarrera";
 			TypedQuery<Estudiante_Carrera> query = em.createQuery(jpql, Estudiante_Carrera.class);
-			query.setParameter("nroLibreta",nroLibreta);
-			query.setParameter("nroDoc", nroDoc);
-			query.setParameter("idCarrera", idCarrera);
+		
 			Estudiante_Carrera matricula = query.getSingleResult();
 			
 			return convertEstudianteCarreraDTO(matricula);
 			
 		}catch (Exception e) {
-			// TODO: handle exception
+
 		}
 		return null;
 	}
@@ -59,14 +56,58 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 		return estudiante;
     }
 
-  
+
+	//contar cantidad de estudiantes inscriptos
+	public int cantidadEstudiantesInscriptos(int idCarrera) {
+		EntityManager em = EntityFactory.getInstance().createEntityManager();
+		try {
+			String jpql = "SELECT count(ec.idEstudiante) FROM Estudiante_Carrera ec " +
+		                  "WHERE  ec.idCarrera = :idCarrera";
+			TypedQuery<Estudiante_Carrera> query = em.createQuery(jpql, Estudiante_Carrera.class);
+
+			int cantidad = query.getFirstResult();
+
+			return cantidad;
+
+			
+		}catch (Exception e) {
+
+		}
+		return 0;
+	}
+
+	//contar cantidad de estudiantes graduados
+	public int cantidadEstudiantesGraduados(int idCarrera) {
+		EntityManager em = EntityFactory.getInstance().createEntityManager();
+		try {
+			String jpql = "SELECT count(ec.graduado) FROM Estudiante_Carrera ec " +
+		                  "WHERE  ec.idCarrera = :idCarrera" +
+						  "AND ec.graduado = true";
+			TypedQuery<Estudiante_Carrera> query = em.createQuery(jpql, Estudiante_Carrera.class);
+
+			int cantidad = query.getFirstResult();
+
+			return cantidad;
+
+			
+		}catch (Exception e) {
+
+		}
+		return 0;
+	}
+
+	
 	private Estudiante_CarreraDTO convertEstudianteCarreraDTO(Estudiante_Carrera estudianteCarrera) {
+		/*
+		Estudiante_Carrera(nombreCarrea, year, inscriptos, graduados) 	
+		*/
 	    Estudiante_CarreraDTO estudianteCarreraDTO = new Estudiante_CarreraDTO(
-	        estudianteCarrera.getEstudiante().getIdEstudiante(), // estudiante
-	        estudianteCarrera.getCarrera().getIdCarrera(), // carrera
-	        estudianteCarrera.getAntiguedad(),
-	        estudianteCarrera.isGraduado()
+   	    		estudianteCarrera.getCarrera().getNombreCarrera(),
+	    		estudianteCarrera.getAntiguedad(),
+				cantidadEstudiantesInscriptos(estudianteCarrera.getCarrera().getIdCarrera()),
+				cantidadEstudiantesGraduados(estudianteCarrera.getCarrera().getIdCarrera())
 	    );
+		
 	    return estudianteCarreraDTO;
 	}
 
@@ -175,8 +216,8 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 		TypedQuery<EstudianteDTO> query = em.createQuery("SELECT NEW com.example.tpintegrador2.DTO.EstudianteDTO(e.nombre,e.apellido,e.estudianteId.libretaUniversitaria,e.estudianteId.dni) FROM Estudiante_Carrera ec"
                 +" INNER JOIN Estudiante e ON e = ec.estudiante"
                 +" WHERE e.ciudad = :ciudad AND ec.carrera.id = :idCarrera", EstudianteDTO.class);
-		query.setParameter("ciudad", ciudad);
-		query.setParameter("idCarrera", idCarrera);
+			query.setParameter("ciudad", ciudad);
+			query.setParameter("idCarrera", idCarrera);
 
 		List<EstudianteDTO> estudiantes = query.getResultList();
 		
@@ -188,32 +229,115 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 		return null;
 	}
 
+	/*
+	 
+	   Generar un reporte de las carreras, que para cada carrera incluya información de los
+	   inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
+	   los años de manera cronológica
+	 
+	 	
+	 	|NombreCarrera|cantInscriptos|cantGraduados| 
+	 	
+	 	las carreras deben estar ordenadas Alfabeticamente  y los años de forma cronologica
+	 	
+	 	Base de datos
+	 	Estudiante:
+	 		idEstudiante
+	 		nombre
+	 		apellido
+	 	
+	 	Carrera:
+	 		idCarrera
+	 		nombreCarrera
+	 		
+	 	estudiante_carrera:
+	 		añoIngr
+	 		graduado bool
+	 		idEstudiante
+	 		idCarrera
+	 		
+	 	
+	 */
 
 	@Override
 	public List<Estudiante_CarreraDTO> obtenerReporte() {
         EntityManager em = EntityFactory.getInstance().createEntityManager();
-        List<Estudiante_CarreraDTO> lista = new ArrayList<>();
-        try {
-        	int currentYear =LocalDate.now().getYear();
-        	
-            for (int year = 1990; year <= currentYear; year++) {
-                TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
-                        "SELECT NEW com.example.tpintegrador2.DTO.EstudianteDTO(c.nombre, :y, " +
-                                "(SELECT COUNT(ec) FROM Estudiante_Carrera ec WHERE ec.carrera = c AND (:yAct - ec.antiguedad) = :y), " +
-                                "(SELECT COUNT(ec) FROM Estudiante_Carrera  ec WHERE ec.carrera = c AND ec.graduado = true AND (:yAct - ec.antiguedad) = :y)) " +
-                                "FROM Carrera c " +
-                                "WHERE (SELECT COUNT(ec) FROM Estudiante_Carrera ec WHERE ec.carrera = c AND (:yAct - ec.antiguedad) = :y) > 0 " +
-                                "   OR (SELECT COUNT(ec) FROM Estudiante_Carrera ec WHERE ec.carrera = c AND ec.graduado = true AND (:yAct - ec.antiguedad) = :y) > 0 ", Estudiante_CarreraDTO.class);
-
-                query.setParameter("yAct", currentYear);
-                query.setParameter("y", year);
+		List<Estudiante_CarreraDTO> lista = new ArrayList<>();
+		
+		try {
+			int currentYear = LocalDate.now().getYear();
+		
+			for (int year = 1990; year <= currentYear; year++) {
+				TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
+						"SELECT NEW com.example.tpintegrador2.DTO.Estudiante_CarreraDTO(c.nombreCarrera,:year, " +
+					            "COUNT(ec), " +
+					            "SUM(CASE WHEN ec.graduado = true THEN 1 ELSE 0 END)) " +
+					            "FROM Estudiante_Carrera ec " +
+					            "JOIN ec.carrera c " +
+					            "WHERE ec.antiguedad = :year " +
+					            "GROUP BY c.nombreCarrera " , Estudiante_CarreraDTO.class);
+		
+				query.setParameter("year", year);
+				 
                 lista.addAll(query.getResultList());
-            }
-        } finally {
-            em.close();
-        }
+
+
+/*
+for (int year = 1990; year <= currentYear; year++) {
+    TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
+        "SELECT NEW com.example.tpintegrador2.DTO.Estudiante_CarreraDTO(c.nombreCarrera, " +
+            "COUNT(ec), " +
+            "SUM(CASE WHEN ec.graduado = true THEN 1 ELSE 0 END)) " +
+            "FROM Estudiante_Carrera ec " +
+            "JOIN ec.carrera c " +
+            "WHERE ec.antiguedad = :year " +
+            "GROUP BY c.nombreCarrera " +
+            "ORDER BY c.nombreCarrera ASC", Estudiante_CarreraDTO.class);
+    
+    query.setParameter("y", year);
+    
+    lista.addAll(query.getResultList());
+}
+
+ */
+				
+			}
+				
+				
+			return lista;
+				
+
+			
+		} finally {
+			em.close();
+		}
         
-        return lista;
+        /*
+
+		
+         					Estudiante_CarreraDTO(nombre,año,estudiantesInscriptos,EstudiantesGraduados)
+         	"SELECT NEW com.example.tpintegrador2.DTO.EstudianteDTO(c.nombre, :y, " +
+
+                    "(SELECT COUNT(ec) FROM Estudiante_Carrera ec WHERE ec.carrera = c AND (:yAct - ec.antiguedad) = :y), " +
+                    "(SELECT COUNT(ec) FROM Estudiante_Carrera  ec WHERE ec.carrera = c AND ec.graduado = true AND (:yAct - ec.antiguedad) = :y)) 
+        
+         ******
+         
+         TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
+						"SELECT NEW com.example.tpintegrador2.DTO.Estudiante_CarreraDTO(c.nombreCarrera, ec.antiguedad , " +
+						        "COUNT(ec), " +
+						        "SUM(CASE WHEN ec.graduado = true THEN 1 ELSE 0 END)) " +
+						        "FROM Estudiante_Carrera ec " +
+						        "JOIN ec.carrera c " +
+						        "WHERE ec.antiguedad  = :y " +
+						        "GROUP BY c.nombreCarrera, ec.antiguedad  " +
+						        "ORDER BY c.nombreCarrera ASC, ec.antiguedad  ASC", Estudiante_CarreraDTO.class);
+		
+         
+         
+         */
+        
+        
 		    
 	}
 

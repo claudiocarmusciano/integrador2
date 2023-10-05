@@ -2,9 +2,12 @@ package com.example.tpintegrador2;
 
 import com.example.tpintegrador2.CSV.CSV;
 import com.example.tpintegrador2.DTO.EstudianteDTO;
+import com.example.tpintegrador2.DTO.Estudiante_CarreraDTO;
 import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
+import com.example.tpintegrador2.Interfaces.Estudiante_CarreraRepository;
 import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
+import com.example.tpintegrador2.Repository.Estudiante_CarreraRepositoryImpl;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -97,7 +100,7 @@ public class Main {
 
 
           // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
-
+/*
             System.out.println("Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia");
             List<EstudianteDTO> estudiantesRecuperados = estudianteRepository.getEstudiantesPorCarreraYCiudad("TUDAI", "Ingenieria de Sistemas");
             for (EstudianteDTO estudiante : estudiantesRecuperados) {
@@ -105,6 +108,26 @@ public class Main {
             }
             System.out.println();
 
+            
+           /*Ejercicio 3.-
+            
+            
+            Generar un reporte de las carreras, que para cada carrera incluya información de los
+			inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
+			los años de manera cronológica
+            
+          */
+            
+            
+        
+        Estudiante_CarreraRepository estudianteCarreraRepository = new Estudiante_CarreraRepositoryImpl();
+        List<Estudiante_CarreraDTO> reporteEstudiante = estudianteCarreraRepository.obtenerReporte();
+        for (Estudiante_CarreraDTO estudiante : reporteEstudiante) {
+            System.out.println(estudiante);
+        }
+        System.out.println();
+        	
+            
 
         } catch (Exception e) {
             e.printStackTrace();

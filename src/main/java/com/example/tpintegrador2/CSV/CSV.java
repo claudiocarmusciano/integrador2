@@ -170,7 +170,7 @@ public class CSV {
 
 
                 Estudiante estudiante = fr.getEstudianteRepository().getEstudianteById(idEstudiante);
-                Carrera carrera = fr.getCarreraRepository().getCarreraById(3);
+                Carrera carrera = fr.getCarreraRepository().getCarreraById(idCarrera);
             
                // System.err.println(estudiante);
                 //System.err.println(carrera);

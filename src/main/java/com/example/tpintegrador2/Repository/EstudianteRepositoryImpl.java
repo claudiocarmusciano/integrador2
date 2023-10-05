@@ -193,7 +193,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     	try {
     		String jpql = "SELECT e FROM Estudiante e " +
                     	 "JOIN e.carreras c " +
-                    	 "WHERE c.nombre = :nombreCarrera " +
+                    	 "WHERE c.nombreCarrera = :nombreCarrera " +
                     	 "AND e.ciudadResidencia = :ciudadResidencia";
     		TypedQuery<Estudiante> query = em.createQuery(jpql,Estudiante.class);
     		query.setParameter("nombreCarrera", nombreCarrera);

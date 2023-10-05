@@ -14,7 +14,7 @@ public interface Estudiante_CarreraRepository {
 
 	void altaMatricula(Estudiante estudiante, Carrera carrera, int antiguedad, boolean graduado);
 
-	Estudiante_CarreraDTO obtenerMatriculaPorId(int nroLibreta, int nroDoc, int idCarrera);
+	Estudiante_CarreraDTO obtenerMatriculaPorId(int idCarrera);
 
 	void matricularEstudiante(Estudiante estudiante, Carrera carrera);
 
