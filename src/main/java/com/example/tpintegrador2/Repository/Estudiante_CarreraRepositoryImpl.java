@@ -265,7 +265,27 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 		List<Estudiante_CarreraDTO> lista = new ArrayList<>();
 		
 		try {
+
 			int currentYear = LocalDate.now().getYear();
+
+			TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
+					"SELECT NEW com.example.tpintegrador2.DTO.Estudiante_CarreraDTO(c.nombreCarrera, ec.antiguedad, " +
+							"COUNT(ec), " +
+							"SUM(CASE WHEN ec.graduado = true THEN 1 ELSE 0 END)) " +
+							"FROM Estudiante_Carrera ec " +
+							"JOIN ec.carrera c " +
+							"WHERE ec.antiguedad BETWEEN 1990 AND :currentYear " +
+							"GROUP BY c.nombreCarrera, ec.antiguedad " +
+							"ORDER BY c.nombreCarrera ASC, ec.antiguedad ASC", Estudiante_CarreraDTO.class);
+
+			query.setParameter("currentYear", currentYear);
+
+			List<Estudiante_CarreraDTO> resultados = query.getResultList();
+
+			return resultados;
+
+
+			/*int currentYear = LocalDate.now().getYear();
 		
 			for (int year = 1990; year <= currentYear; year++) {
 				TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
@@ -288,7 +308,7 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
 				
 				
 			return lista;
-				
+		*/
 
 			
 		} finally {
