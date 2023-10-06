@@ -1,11 +1,14 @@
 package com.example.tpintegrador2;
 
 import com.example.tpintegrador2.CSV.CSV;
+import com.example.tpintegrador2.DTO.CarreraDTO;
 import com.example.tpintegrador2.DTO.EstudianteDTO;
 import com.example.tpintegrador2.DTO.Estudiante_CarreraDTO;
 import com.example.tpintegrador2.Entidades.Estudiante;
+import com.example.tpintegrador2.Interfaces.CarreraRepository;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
 import com.example.tpintegrador2.Interfaces.Estudiante_CarreraRepository;
+import com.example.tpintegrador2.Repository.CarreraRepositoryImpl;
 import com.example.tpintegrador2.Repository.EstudianteRepositoryImpl;
 import com.example.tpintegrador2.Repository.Estudiante_CarreraRepositoryImpl;
 
@@ -45,11 +48,12 @@ public class Main {
 
         CSV csv = new CSV();
         csv.readCSV("carreras.csv", "estudiantes.csv","estudianteCarrera.csv");
+        EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
+        CarreraRepository carreraRepository = new CarreraRepositoryImpl();
 
         // a) Dar de alta un estudiante
 
         System.out.println("Dar de alta un estudiante:");
-        EstudianteRepository estudianteRepository = new EstudianteRepositoryImpl();
         estudianteRepository.altaEstudiante("Andrea", "Gonzalez", 25, "Fame", 40833743, "Tandil", 4632);
         System.out.println();
 
@@ -95,8 +99,14 @@ public class Main {
 
        // f) Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos
 
+        //obtenerCarrerasInscriptos
 
-
+        System.out.println("Recuperar las carreras con estudiantes inscriptos, y ordenar por cantidad de inscriptos");
+        List<CarreraDTO> carreraRecuperados = carreraRepository.obtenerCarrerasInscriptos();
+        for (CarreraDTO carrera : carreraRecuperados) {
+            System.out.println(carrera);
+        }
+        System.out.println();
 
 
           // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia

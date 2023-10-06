@@ -4,26 +4,26 @@ import java.io.Serializable;
 
 public class CarreraDTO implements Serializable {
     private String nombre;
-    private int duracion;
+    private Long cantEstudiante;
 
-    public CarreraDTO(String nombre, int duracion){
+    public  CarreraDTO() {
+		
+	}   
+    public CarreraDTO(String nombre, Long cantEstudiante){
         this.nombre = nombre;
-        this.duracion = duracion;
+        this.cantEstudiante = cantEstudiante;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public int getDuracion() {
-        return duracion;
+    public Long getCantEstudiantes() {
+        return cantEstudiante;
     }
 
     @Override
     public String toString() {
-        return "CarreraDTO{" +
-                "nombre='" + nombre + '\'' +
-                ", duracion=" + duracion +
-                '}';
+        return "nroEstudiantes: "+getCantEstudiantes()+" Carrera: "+ getNombre();
     }
 }

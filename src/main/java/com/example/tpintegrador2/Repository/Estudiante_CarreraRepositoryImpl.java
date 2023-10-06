@@ -282,24 +282,7 @@ public class Estudiante_CarreraRepositoryImpl implements Estudiante_CarreraRepos
                 lista.addAll(query.getResultList());
 
 
-/*
-for (int year = 1990; year <= currentYear; year++) {
-    TypedQuery<Estudiante_CarreraDTO> query = em.createQuery(
-        "SELECT NEW com.example.tpintegrador2.DTO.Estudiante_CarreraDTO(c.nombreCarrera, " +
-            "COUNT(ec), " +
-            "SUM(CASE WHEN ec.graduado = true THEN 1 ELSE 0 END)) " +
-            "FROM Estudiante_Carrera ec " +
-            "JOIN ec.carrera c " +
-            "WHERE ec.antiguedad = :year " +
-            "GROUP BY c.nombreCarrera " +
-            "ORDER BY c.nombreCarrera ASC", Estudiante_CarreraDTO.class);
-    
-    query.setParameter("y", year);
-    
-    lista.addAll(query.getResultList());
-}
 
- */
 				
 			}
 				
