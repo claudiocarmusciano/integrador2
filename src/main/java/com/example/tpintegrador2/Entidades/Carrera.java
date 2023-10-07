@@ -43,9 +43,6 @@ public class Carrera {
         return nombreCarrera;
     }
 
-//    public void setNombreCarrera(String nombreCarrera) {
-//        this.nombreCarrera = nombreCarrera;
-//    }
 
     @Override
     public String toString() {

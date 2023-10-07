@@ -109,9 +109,6 @@ public class Estudiante {
         return nroLibreta;
     }
 
-//    public void setNroLibreta(int nroLibreta) {
-//        this.nroLibreta = nroLibreta;
-//    }
 
     public List<Estudiante_Carrera> getEstudianteCarrera() {
         return estudianteCarrera;
