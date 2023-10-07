@@ -4,11 +4,7 @@ import java.io.Serializable;
 
 public class EstudianteDTO implements Serializable {
     private String fullName,genero,ciudadResidencia;
-    private int edad,nroDocumento, nroLibreta;
-
-    public EstudianteDTO() {
-        super();
-    }
+    private int edad, nroDocumento, nroLibreta;
 
     public EstudianteDTO(String fullName, String genero, String ciudadResidencia, int edad, int nroDocumento, int nroLibreta) {
         this.fullName = fullName;
@@ -43,12 +39,9 @@ public class EstudianteDTO implements Serializable {
         return nroLibreta;
     }
 
- 
     @Override
     public String toString() {
-        return String.format("%-40s %-10s %-30s %20d %20s %20s",
-                        fullName, genero, ciudadResidencia, edad, nroDocumento, nroLibreta);
+        return String.format("%-40s %-10s %-30s %20d %20s %20s", fullName, genero, ciudadResidencia, edad, nroDocumento, nroLibreta);
     }
-
 
 }

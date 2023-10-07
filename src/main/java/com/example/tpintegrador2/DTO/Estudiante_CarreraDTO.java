@@ -9,14 +9,6 @@ public class Estudiante_CarreraDTO implements Serializable {
     private long inscriptos;
     private long egresados;
 
-    
-    public Estudiante_CarreraDTO() {
-         
-    }
-
-   
-
-    //constructor
     public Estudiante_CarreraDTO(String nombreCarrera, int year, long inscriptos, long egresados) {
         this.nombreCarrera = nombreCarrera;
         this.year = year;
@@ -24,42 +16,25 @@ public class Estudiante_CarreraDTO implements Serializable {
         this.egresados = egresados;
     }
 
-    //getters
-
     public String getNombreCarrera() {
         return nombreCarrera;
     }
 
-    
     public int getYear() {
         return year;
-
     }
 
     public long getInscriptos() {
         return inscriptos;
     }
 
-
     public long getEgresados() {
-        return egresados;
+       return egresados;
     }
 
-
-    //toString
     @Override
     public String toString() {
-        //	 	year||cantInscriptos|cantGraduados|NombreCarrera
         return year + "|" + inscriptos + "|" + egresados + "|" + nombreCarrera;
     } 
         
-    
-
-
-
-
-
-
-
-
 }
