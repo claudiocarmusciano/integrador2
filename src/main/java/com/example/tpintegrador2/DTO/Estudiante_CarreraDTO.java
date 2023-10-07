@@ -47,12 +47,17 @@ public class Estudiante_CarreraDTO implements Serializable {
 
 
     //toString
+//    @Override
+//    public String toString() {
+//        //	 	year||cantInscriptos|cantGraduados|NombreCarrera
+//        return year + "|" + inscriptos + "|" + egresados + "|" + nombreCarrera;
+//    }
+
     @Override
     public String toString() {
-        //	 	year||cantInscriptos|cantGraduados|NombreCarrera
-        return year + "|" + inscriptos + "|" + egresados + "|" + nombreCarrera;
-    } 
-        
+        return String.format("%-10s %-15s %-12s %20s",
+                year, inscriptos, egresados, nombreCarrera);
+    }
     
 
 

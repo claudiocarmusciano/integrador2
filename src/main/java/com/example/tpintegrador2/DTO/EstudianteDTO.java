@@ -46,7 +46,7 @@ public class EstudianteDTO implements Serializable {
  
     @Override
     public String toString() {
-        return String.format("%-40s %-10s %-30s %20d %20s %20s",
+        return String.format("%-42s %-10s %-30s %20d %20s %20s",
                         fullName, genero, ciudadResidencia, edad, nroDocumento, nroLibreta);
     }
 

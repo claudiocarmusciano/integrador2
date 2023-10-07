@@ -53,24 +53,34 @@ public class Main {
 
         // a) Dar de alta un estudiante
 
-        System.out.println("Dar de alta un estudiante:");
-        estudianteRepository.altaEstudiante("Andrea", "Gonzalez", 25, "Fame", 40833743, "Tandil", 4632);
+        String nombre = "Lionel";
+        String apellido = "Messi";
+        int edad = 33;
+        String genero = "Male";
+        int dni = 23128286;
+        String ciudad = "Miami";
+        int libreta = 2342234;
+
+        System.out.println("Dar de alta un estudiante (" + nombre + " " + apellido + ", " + edad + " años, " + genero + ", DNI " + dni + ", vive en " + ciudad + ", con libreta nro. " + libreta);
+
+        estudianteRepository.altaEstudiante(nombre, apellido, edad, genero, dni, ciudad, libreta);
         System.out.println();
 
         // b) Matricular un estudiante en una carrera
 
-        System.out.println("Matricular un estudiante en una carrera:");
         int estudianteId = 105;  // Gonzalez Andrea
         int carreraId = 1;  // TUDAI
+        System.out.println("Matricular un estudiante (idEstudiante " + estudianteId + ") en una carrera (idCarrera: " + carreraId + ")");
         estudianteRepository.matricularEstudianteEnCarrera(estudianteId, carreraId);
         System.out.println();
 
 
         //c) Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple
 
-        System.out.println("Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple");
-        System.out.printf("%-40s\t%-10s\t%-30s\t%20s\t%20s\t%20s\t%20s %n", "Nombre", "Género", "Ciudad", "Edad", "DNI", "Nro. Libreta", "Carreras");
-        List<EstudianteDTO> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados("nombre");
+        String criterioOrdenamiento = "nombre";
+            System.out.println("Recuperar todos los estudiantes, y especificar algún criterio de ordenamiento simple (ordenado por " + criterioOrdenamiento + ")");
+        System.out.printf("%-37s\t%-10s\t%-37s\t%11s\t%20s\t%20s\t%20s %n", "Nombre", "Género", "Ciudad", "Edad", "DNI", "Nro. Libreta", "Carreras");
+        List<EstudianteDTO> estudiantesOrdenados = estudianteRepository.recuperarEstudiantesOrdenados(criterioOrdenamiento);
         for (EstudianteDTO estudiante : estudiantesOrdenados) {
             System.out.println(estudiante);
         }
@@ -78,19 +88,19 @@ public class Main {
 
 
        // d) Recuperar un estudiante, en base a su número de libreta universitaria
-
-        System.out.println("Recuperar un estudiante, en base a su número de libreta universitaria");
-        EstudianteDTO estudiantePorLibreta = estudianteRepository.recuperarEstudiantePorLibreta(34978);
+        int nroLibreta = 34978;
+        System.out.println("Recuperar un estudiante, en base a su número de libreta universitaria (nro. de libreta " + nroLibreta + ")");
+        EstudianteDTO estudiantePorLibreta = estudianteRepository.recuperarEstudiantePorLibreta(nroLibreta);
         System.out.println(estudiantePorLibreta);
         System.out.println();
 
 
 
         // e) Recuperar todos los estudiantes, en base a su género
-
-        System.out.println("Recuperar todos los estudiantes, en base a su género");
-        System.out.printf("%-40s\t%-10s\t%-30s\t%20s\t%20s\t%20s\t%20s %n", "Nombre", "Género", "Ciudad", "Edad", "DNI", "Nro. Libreta", "Carreras");
-        List<EstudianteDTO> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero("Male");
+        String filtroGenero = "Male";
+        System.out.println("Recuperar todos los estudiantes, en base a su género (" + filtroGenero + ")");
+        System.out.printf("%-37s\t%-10s\t%-37s\t%11s\t%20s\t%20s\t%20s %n", "Nombre", "Género", "Ciudad", "Edad", "DNI", "Nro. Libreta", "Carreras");
+        List<EstudianteDTO> estudiantesPorGenero = estudianteRepository.recuperarEstudiantesPorGenero(genero);
         for (EstudianteDTO estudiante : estudiantesPorGenero) {
             System.out.println(estudiante);
         }
@@ -111,8 +121,10 @@ public class Main {
 
           // g) Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia
 
-            System.out.println("Recuperar los estudiantes de una determinada carrera, filtrado por ciudad de residencia");
-            List<EstudianteDTO> estudiantesRecuperados = estudianteRepository.getEstudiantesPorCarreraYCiudad("TUDAI", "Arroio do Meio");
+            String carreraFiltro = "TUDAI";
+            String ciudadFiltro = "Arroio do Meio";
+            System.out.println("Recuperar los estudiantes de una determinada carrera (" + carreraFiltro + "), filtrado por ciudad de residencia (" + ciudadFiltro + ")");
+            List<EstudianteDTO> estudiantesRecuperados = estudianteRepository.getEstudiantesPorCarreraYCiudad(carreraFiltro, ciudadFiltro);
             for (EstudianteDTO estudiante : estudiantesRecuperados) {
                 System.out.println(estudiante);
             }
@@ -127,10 +139,11 @@ public class Main {
 			los años de manera cronológica
             
           */
-            
-            
-        
+
+
+        System.out.println("Reporte de carreras, con información de los inscriptos y egresados por año.");
         Estudiante_CarreraRepository estudianteCarreraRepository = new Estudiante_CarreraRepositoryImpl();
+        System.out.printf("%-9s\t%-15s\t%-10s\t%20s %n", "Año", "Inscriptos", "Egresados", "Carrera");
         List<Estudiante_CarreraDTO> reporteEstudiante = estudianteCarreraRepository.obtenerReporte();
         for (Estudiante_CarreraDTO estudiante : reporteEstudiante) {
             System.out.println(estudiante);
