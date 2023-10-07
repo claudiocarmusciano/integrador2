@@ -3,44 +3,44 @@ package com.example.tpintegrador2.DTO;
 import java.io.Serializable;
 
 public class Estudiante_CarreraDTO implements Serializable {
-    private int estudiante;
-    private int carrera;
-    private int antiguedad;
-    boolean graduado;
 
-    public Estudiante_CarreraDTO() {
+    private String nombreCarrera;
+    private int year;
+    private long inscriptos;
+    private long egresados;
+
+    public Estudiante_CarreraDTO(String nombreCarrera, int year, long inscriptos, long egresados) {
+        this.nombreCarrera = nombreCarrera;
+        this.year = year;
+        this.inscriptos = inscriptos;
+        this.egresados = egresados;
     }
 
-    public Estudiante_CarreraDTO(int estudiante, int carrera, int antiguedad, boolean graduado) {
-        this.estudiante = estudiante;
-        this.carrera = carrera;
-        this.antiguedad = antiguedad;
-        this.graduado = graduado;
+    public String getNombreCarrera() {
+        return nombreCarrera;
     }
 
-    public int getEstudiante() {
-        return estudiante;
+    public int getYear() {
+        return year;
     }
 
-    public int getCarrera() {
-        return carrera;
+    public long getInscriptos() {
+        return inscriptos;
     }
 
-    public int getAntiguedad() {
-        return antiguedad;
+    public long getEgresados() {
+        return egresados;
     }
 
-    public boolean isGraduado() {
-        return graduado;
-    }
 
     @Override
     public String toString() {
-        return "Estudiante_CarreraDTO{" +
-                "estudiante=" + estudiante +
-                ", carrera=" + carrera +
-                ", antiguedad=" + antiguedad +
-                ", graduado=" + graduado +
-                '}';
+        return String.format("%-10s %-15s %-12s %20s",
+                year, inscriptos, egresados, nombreCarrera);
     }
 }
+    
+
+
+
+

@@ -8,18 +8,19 @@ public class Estudiante_Carrera {
     @Id
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumns({
-            @JoinColumn(name = "nroDocumento", referencedColumnName = "nroDocumento"),
-            @JoinColumn(name = "nroLibreta", referencedColumnName = "nroLibreta")
+            @JoinColumn(name = "idEstudiante", referencedColumnName = "idEstudiante"),
     })
     private Estudiante estudiante;
 
 
     @Id
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "carrera", referencedColumnName = "idCarrera")
+    @JoinColumn(name = "idCarrera", referencedColumnName = "idCarrera")
     private Carrera carrera;
+    
 
-    private int antiguedad;
+  
+	private int antiguedad;
     private boolean graduado;
 
     public Estudiante_Carrera() {

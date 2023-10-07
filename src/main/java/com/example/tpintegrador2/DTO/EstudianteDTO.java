@@ -3,22 +3,16 @@ package com.example.tpintegrador2.DTO;
 import java.io.Serializable;
 
 public class EstudianteDTO implements Serializable {
-    private String fullName,genero,ciudadResidencia;
-    private int edad,nroDocumento, nroLibreta;
-    private int carreras;// ??? no conviene un list ?
+    private String fullName, genero, ciudadResidencia;
+    private int edad, nroDocumento, nroLibreta;
 
-    public EstudianteDTO() {
-        super();
-    }
-
-    public EstudianteDTO(String fullName, String genero, String ciudadResidencia, int edad, int nroDocumento, int nroLibreta, int carreras) {
+    public EstudianteDTO(String fullName, String genero, String ciudadResidencia, int edad, int nroDocumento, int nroLibreta) {
         this.fullName = fullName;
         this.genero = genero;
         this.ciudadResidencia = ciudadResidencia;
         this.edad = edad;
         this.nroDocumento = nroDocumento;
         this.nroLibreta = nroLibreta;
-        this.carreras = carreras;
     }
 
     public String getFullName() {
@@ -45,20 +39,9 @@ public class EstudianteDTO implements Serializable {
         return nroLibreta;
     }
 
-    public int getCarreras() {
-        return carreras;
-    }
-
     @Override
     public String toString() {
-        return "EstudianteDTO{" +
-                "fullName='" + fullName + '\'' +
-                ", genero='" + genero + '\'' +
-                ", ciudadResidencia='" + ciudadResidencia + '\'' +
-                ", edad=" + edad +
-                ", nroDocumento=" + nroDocumento +
-                ", nroLibreta=" + nroLibreta +
-                ", carreras=" + carreras +
-                '}';
+        return String.format("%-42s %-10s %-30s %20d %20s %20s",
+                fullName, genero, ciudadResidencia, edad, nroDocumento, nroLibreta);
     }
 }

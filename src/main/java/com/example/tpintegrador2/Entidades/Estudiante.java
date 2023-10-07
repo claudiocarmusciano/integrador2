@@ -24,16 +24,17 @@ public class Estudiante {
     private String ciudadResidencia;
     @Column(nullable=false)
     private int nroLibreta;
-    @OneToMany (mappedBy = "estudiante")
+
+    @OneToMany(mappedBy = "estudiante", fetch = FetchType.EAGER)
     private List<Estudiante_Carrera> estudianteCarrera;
 
 
-    public Estudiante() {
+    public Estudiante(int nroDocumento, int libreta, String nombre, String apellido, int edad, String genero, String ciudadResidencia, int nroLibreta) {
         super();
     }
 
-    public Estudiante(int idEstudiante, String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
-        this.idEstudiante = idEstudiante;
+    public Estudiante(String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
+        //this.idEstudiante = idEstudiante;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
@@ -42,6 +43,10 @@ public class Estudiante {
         this.ciudadResidencia = ciudadResidencia;
         this.nroLibreta = nroLibreta;
         //this.carreras = carreras;
+    }
+
+    public Estudiante() {
+
     }
 
     public int getIdEstudiante() {
@@ -104,9 +109,9 @@ public class Estudiante {
         return nroLibreta;
     }
 
-    public void setNroLibreta(int nroLibreta) {
-        this.nroLibreta = nroLibreta;
-    }
+//    public void setNroLibreta(int nroLibreta) {
+//        this.nroLibreta = nroLibreta;
+//    }
 
     public List<Estudiante_Carrera> getEstudianteCarrera() {
         return estudianteCarrera;
