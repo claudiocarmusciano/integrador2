@@ -132,15 +132,12 @@ public class Main {
 
             
            /*Ejercicio 3.-
-            
-            
+
             Generar un reporte de las carreras, que para cada carrera incluya información de los
 			inscriptos y egresados por año. Se deben ordenar las carreras alfabéticamente, y presentar
 			los años de manera cronológica
-            
           */
-
-
+            
         System.out.println("Reporte de carreras, con información de los inscriptos y egresados por año.");
         Estudiante_CarreraRepository estudianteCarreraRepository = new Estudiante_CarreraRepositoryImpl();
         System.out.printf("%-9s\t%-15s\t%-10s\t%20s %n", "Año", "Inscriptos", "Egresados", "Carrera");
