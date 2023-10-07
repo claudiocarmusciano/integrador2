@@ -31,7 +31,7 @@ public class Estudiante_CarreraDTO implements Serializable {
     public long getEgresados() {
         return egresados;
     }
-    
+
 
     @Override
     public String toString() {
