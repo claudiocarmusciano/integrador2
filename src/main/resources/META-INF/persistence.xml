@@ -3,24 +3,22 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
-    <persistence-unit name="integrador2">
 
-        <class>com.example.tpintegrador2.Entidades.Carrera</class>
-        <class>com.example.tpintegrador2.Entidades.Estudiante</class>
-        <class>com.example.tpintegrador2.Entidades.Estudiante_Carrera</class>
+             <persistence-unit name="integrador2">
 
+                <class>com.example.tpintegrador2.Entidades.Carrera</class>
+                <class>com.example.tpintegrador2.Entidades.Estudiante</class>
+                <class>com.example.tpintegrador2.Entidades.Estudiante_Carrera</class>
 
-        <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="update"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/integrador2"/>
-            <property name="javax.persistence.jdbc.user" value="root"/>
-            <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="hibernate.hbm2ddl.auto" value="update" />
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
-            <property name="show_sql" value="true" />
+                <properties>
+                    <property name="javax.persistence.schema-generation.database.action" value="update"/>
+                    <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/integrador2"/>
+                    <property name="javax.persistence.jdbc.user" value="root"/>
+                    <property name="javax.persistence.jdbc.password" value=""/>
+                    <property name="hibernate.hbm2ddl.auto" value="update" />
+                    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+                    <property name="show_sql" value="true" />
+                </properties>
 
-
-        </properties>
-
-    </persistence-unit>
+            </persistence-unit>
 </persistence>

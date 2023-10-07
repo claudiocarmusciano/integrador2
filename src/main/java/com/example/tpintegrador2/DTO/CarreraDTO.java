@@ -3,13 +3,10 @@ package com.example.tpintegrador2.DTO;
 import java.io.Serializable;
 
 public class CarreraDTO implements Serializable {
-    private String nombre;
-    private Long cantEstudiante;
+   private String nombre;
+   private Long cantEstudiante;
 
-    public  CarreraDTO() {
-		
-	}   
-    public CarreraDTO(String nombre, Long cantEstudiante){
+   public CarreraDTO(String nombre, Long cantEstudiante){
         this.nombre = nombre;
         this.cantEstudiante = cantEstudiante;
     }
