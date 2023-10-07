@@ -2,17 +2,10 @@ package com.example.tpintegrador2.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.example.tpintegrador2.DTO.CarreraDTO;
-import com.example.tpintegrador2.DTO.EstudianteDTO;
-import com.example.tpintegrador2.DTO.Estudiante_CarreraDTO;
 import com.example.tpintegrador2.Entidades.Carrera;
-import com.example.tpintegrador2.Entidades.Estudiante;
-import com.example.tpintegrador2.Entidades.Estudiante_Carrera;
-
 import com.example.tpintegrador2.Factory.EntityFactory;
 import com.example.tpintegrador2.Interfaces.CarreraRepository;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 
@@ -24,7 +17,6 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 			em.getTransaction().begin();
 			em.persist(carrera);
 			em.getTransaction().commit();
-
 		} catch (Exception e) {
 
 		} finally {
@@ -72,7 +64,6 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		CarreraDTO carreraDto = new CarreraDTO(
 				carrera.getNombreCarrera(),
 				(long) 0 // Duracion de CarreraDTO
-
 		);
 		return carreraDto;
 	}
@@ -83,7 +74,6 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		for (Carrera carrera : carreras) {
 			carreraDto.add(convertirCarreraDTO(carrera));
 		}
-
 		return carreraDto;
 	}
 	
@@ -94,7 +84,6 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		int num = 33;
 
 		try {
-
 			TypedQuery<CarreraDTO> query = em.createQuery(
 				    "SELECT NEW com.example.tpintegrador2.DTO.CarreraDTO(c.nombreCarrera, COUNT(ec)) " +
 				    " FROM Estudiante_Carrera ec " +
@@ -102,29 +91,18 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 				    " GROUP BY c.nombreCarrera " +
 				    " ORDER BY COUNT(ec) DESC", CarreraDTO.class);
 
-			//query.setParameter("pr", pr);
-			//query.setParameter("num", num);
 			lista.addAll(query.getResultList());
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error: " + e);
 		}
-
 		return lista;
-
 	}
-/*
-			 * 
-			 * SELECT c.nombreCarrera ,Count(ec.idEstudiante) as cantidadInscriptos
-			 * FROM Estudiante_Carrera ec JOIN carrera c ON ec.idCarrera = c.idCarrera
-			 * WHERE ec.idEstudiante IS NOT NULL GROUP BY c.nombreCarrera
-			 * ORDER BY cantidadInscriptos DESC
-			 * 
-			 */
 
 	public List<CarreraDTO> obtenerTodasLasCarreras() {
 		EntityManager em = EntityFactory.getInstance().createEntityManager();
+
 		try {
 			String jpql = "Select c from Carrera c";
 			TypedQuery<Carrera> query = em.createQuery(jpql, Carrera.class);
@@ -134,16 +112,6 @@ public class CarreraRepositoryImpl implements CarreraRepository {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 		return null;
 	}
-
 }
-
-/*
- * public void agregarCarrera(Carrera carrera) **
- * public void altaCarrera()**
- * public Carrera obtenerCarreraPorId(int id)**
- * public List<CarreraInscriptosDTO> obtenerCarrerasConInscriptos()**
- * public List<Carrera> obtenerTodasLasCarreras() **
- */

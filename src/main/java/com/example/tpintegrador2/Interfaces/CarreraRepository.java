@@ -10,9 +10,5 @@ public interface CarreraRepository {
 	CarreraDTO obtenerCarreraPorId(int idCarrera);
 	List<CarreraDTO> obtenerCarrerasInscriptos();
 	List<CarreraDTO> obtenerTodasLasCarreras();
-
-	/*nuevo */
 	Carrera getCarreraById(int idCarrera);
-
-	
 }

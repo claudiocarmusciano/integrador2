@@ -4,13 +4,10 @@ import com.example.tpintegrador2.DTO.EstudianteDTO;
 import com.example.tpintegrador2.Entidades.Carrera;
 import com.example.tpintegrador2.Entidades.Estudiante;
 import com.example.tpintegrador2.Entidades.Estudiante_Carrera;
-
 import com.example.tpintegrador2.Factory.EntityFactory;
 import com.example.tpintegrador2.Interfaces.EstudianteRepository;
-
 import java.util.List;
 import java.util.ArrayList;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -19,7 +16,6 @@ import jakarta.persistence.TypedQuery;
 public class EstudianteRepositoryImpl implements EstudianteRepository {
 	
 	@Override
-									//1,"Leandro","Ramos", 25, "M" , 40943011, "Olavarria" , 4325)
 	public void altaEstudiante(String nombre, String apellido, int edad, String genero, int nroDocumento, String ciudadResidencia, int nroLibreta) {
 	    try (EntityManager em = EntityFactory.getInstance().createEntityManager()) {
 	        em.getTransaction().begin();
@@ -27,13 +23,9 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 	        em.persist(estudiante);
 	        em.getTransaction().commit();
 	    } catch (Exception e) {
-	        // Manejo de excepciones, si es necesario
 	        e.printStackTrace();
-	        // Puedes lanzar una excepción personalizada o realizar otro manejo de errores aquí
 	    }
 	}
-
-
 
 	@Override
 	public Estudiante getEstudianteById(int idEstudiante) {
@@ -71,7 +63,6 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		    } finally {
 		        em.close();
 		    }
-	
 	}
 
 	private EstudianteDTO convertEstudianteDTO(Estudiante estudiante) {
@@ -100,8 +91,7 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		 EntityManager em = EntityFactory.getInstance().createEntityManager();
 		    
 		    String jpql = "SELECT e FROM Estudiante e ORDER BY ";
-		
-		    
+
 		    switch (criterioOrdenamiento) {
 		        case "nombre":
 		            jpql += "e.nombre ASC";
@@ -113,25 +103,18 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		            jpql += "e.nombre ASC"; 
 		            break;
 		    }
-		    
+
 		    try {
 		        TypedQuery<Estudiante> query = em.createQuery(jpql, Estudiante.class);
 		        List<Estudiante> estudiantes = query.getResultList();
-		    
-		        
+
 		        return convertEstudianteDTO(estudiantes);
 		    } finally {
 		        em.close();
 		    }
 	}
 
-	//no se que hace , **PREGUNTAR**
-	private Query createQuery(String consulta) {
-        return null;
-    }
-
 	@Override
-
 	public List<EstudianteDTO> recuperarEstudiantesPorGenero(String genero) {
 		EntityManager em = EntityFactory.getInstance().createEntityManager();
 
@@ -148,11 +131,9 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
 		}
 	}
 
-
     @Override
     public void matricularEstudianteEnCarrera(int idEstudiante, int idCarrera) {
 
-    	
     	EntityManager em = EntityFactory.getInstance().createEntityManager();
    	 	EntityTransaction tx = em.getTransaction();
    	    
@@ -168,7 +149,6 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
    	             estudianteCarrera.setEstudiante(estudiante);
    	             estudianteCarrera.setCarrera(carrera);
 
-   	            
    	             carrera.agregarEstudianteCarrera(estudianteCarrera); // Agregar a la lista y sincronizar
 
    	             em.persist(estudianteCarrera);
@@ -184,15 +164,13 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
    	    } finally {
    	        em.close();
    	    }
-}
+	}
     
     public List<EstudianteDTO> getEstudiantesPorCarreraYCiudad(String nombreCarrera, String ciudadResidencia){
     	EntityManager em = EntityFactory.getInstance().createEntityManager();
 		List<EstudianteDTO> lista = new ArrayList<>();
 
     	try {
-    		
-
 		 TypedQuery<EstudianteDTO> query = em.createQuery(
 			 "SELECT NEW com.example.tpintegrador2.DTO.EstudianteDTO(e.nombre, e.genero, e.ciudadResidencia, e.edad, e.nroDocumento,e.nroLibreta) " +
 			 "FROM Estudiante_Carrera ec " +
@@ -205,17 +183,10 @@ public class EstudianteRepositoryImpl implements EstudianteRepository {
     		query.setParameter("ciudadResidencia", ciudadResidencia);
 
 			lista.addAll(query.getResultList());
-
-    		
-    	}catch (Exception e) {
+    	 }catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Error en getEstudiantesPorCarreraYCiudad" + e);
-		}
-    	
+		 }
     	return lista;
-
     }
-
-
-
 }
